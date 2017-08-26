@@ -13,4 +13,13 @@ class DishData
       @dishes << Dish.new(row)
     end
   end
+
+  def check_for_target
+    total = 0
+    @dishes.each do |dish|
+      total += dish.price.scan(/[.0-9]/).join().to_f
+        p "#{dish.name}"
+    end
+    p sprintf('%.2f', total)
+  end
 end
