@@ -6,6 +6,7 @@ class DishData
 
   def initialize
     @dishes = []
+    @target_total = 15.05
   end
 
   def load_dishes(filename)
@@ -17,9 +18,15 @@ class DishData
   def check_for_target
     total = 0
     @dishes.each do |dish|
-      total += dish.price.scan(/[.0-9]/).join().to_f
-        p "#{dish.name}"
+      if total.to_f < @target_total
+        total += dish.price.scan(/[.0-9]/).join().to_f
+        if total.to_f == @target_total
+          puts '#{dish.name}'
+        else
+          puts 'no combination'
+        end
+      end
     end
-    p sprintf('%.2f', total)
+    # p sprintf('%.2f', total)
   end
 end

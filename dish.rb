@@ -5,8 +5,4 @@ class Dish
     @name = args.fetch(:name)
     @price = args.fetch(:price)
   end
-
-  def print_info
-    "#{name}"
-  end
 end
