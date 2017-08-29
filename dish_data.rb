@@ -15,22 +15,33 @@ class DishData
     end
   end
 
+  def list_dishes
+    @dishes.each do |dish|
+      # %.2f to ensure 2 decimal places even for 0
+      puts "#{dish.name} - $#{format('%.2f', dish.price)}"
+    end
+  end
+
   def check_for_target
     total = []
     for i in 0..(@dishes.size) do
-      # iterates through and selects the combination of dishes that have a sum of the target total
+      # iterates through collection and selects the combination of dishes that have a sum of the target total
       @dishes.combination(i).to_a.select { |dish| total << dish if dish.sum(&:price) == @target_total }
     end
 
-    # condition for a matched total
-    if total.flatten.sum(&:price) == @target_total
+    current_total = total.flatten.sum(&:price)
+    # conditions for meeting the target total
+    if current_total == @target_total
       total.each do |item|
-        item.each do |dish|
-          p "#{dish.name} - #{dish.price}"
-        end
-        puts 'Can all be bought!'
+        puts '-----------------------------'
+        puts 'DISHES THAT CAN BE BOUGHT'
+        puts '-----------------------------'
+        item.each(&:print_info)
+        puts '-----------------------------'
+        puts "ADDS UP TO $#{current_total}! \n\n"
       end
     else
+      puts '-----------------------------------------------'
       puts 'No combinations of dishes meet the target total'
     end
   end
