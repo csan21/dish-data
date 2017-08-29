@@ -7,6 +7,6 @@ class Dish
   end
 
   def print_info
-    puts "#{name}: $#{price}"
+    puts "#{name} @ $#{format('%.2f', price)}"
   end
 end
